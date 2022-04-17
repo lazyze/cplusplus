@@ -1,0 +1,149 @@
+2讲 conversion function
+    Fraction f(3, 5);
+    double d = 4 + f;
+    //调用operator double()将f转为0.6
+
+3讲 non-explicit-one-argument ctor
+Fraction d2 = f + 4; //二义性
+
+4讲 pointer-like classes
+
+关于智能指针
+
+template <class T>
+class shared_ptr
+{
+public:
+    T& operator*() const
+    {return *px;}
+
+    T* operator->() const
+    {return px;}
+
+    shared_ptr(T* p) : px(p) {}
+private:
+    T* px;
+    long* pn;
+};
+
+struct Foo
+{
+    ...
+    void method(void) {}
+}
+
+shared_ptr<Foo> sp(new Foo);
+Foo f(*sp);
+sp->method();
+符号->的特殊性
+
+关于迭代器
+
+5讲 function-like classes
+operator() 仿函数
+
+6讲 namespace
+
+9讲 理解较困难***
+成员模版 
+
+10讲 specialization
+模版特化
+
+//0
+template<class Key>
+struct hash {};
+
+//1
+template
+struct hash<char> {
+    size_t operator()(char x) const {return x;}
+};
+
+//2
+template
+struct hash<int> {
+    size_t operator()(int x) const {return x;}
+};
+
+//3
+template
+struct hash<long> {
+    size_t operator()(long x) const {return x;}
+};
+cout << hash<long>()(1000); //此处会使用特化3，不使用泛化0
+
+11讲 模板偏特化
+
+12讲 模版模版参数
+
+13讲 c++标准库
+
+14讲 三个主题
+variadic templates(since c++11)
+auto（since c++11）
+range-base for（since c++11）
+
+15讲 reference
+
+16讲 复合&继承关系下的构造和析构
+构造由内而外
+    子类的构造函数首先调用父类的default构造函数，然后才执行自己。
+析构由外而内
+    子类的析构函数首先执行自己的，然后在调用父类的析构函数。
+
+17讲 关于vptr和vtbl *****
+ 独立完成代码编写
+    父类为图，有虚函数draw();
+    子类有圆形，三角形，矩形，五边形;
+
+18讲 this
+多态 动态绑定 三个动作(条件) 
+    1 调用函数的是一个指针
+    2 向上转型，指针是父类，指的是子类对象
+    3 调用虚函数
+
+19讲 
+1)关于动态绑定 Dynamic Binding
+静态绑定 call ***
+    1 调用函数的是一个指针
+    2 向上转型，指针是父类，指的是子类对象
+    3 调用虚函数
+
+2) const
+函数const一般只加在成员函数上
+c++规则
+    当成员函数的const和non-const版本同时存在，
+    const object只能调用const版本，
+    non-const object只能调用non-cosnt版本。
+
+20讲 关于new delete
+new delete是表达式
+
+21讲 operator new, operator delete
+
+重载 ::operator new, ::operator delete
+重载 ::operator new[], ::operator delete[]
+
+重载member operator new/delete
+重载member operator new[]/delete[]
+
+22讲 21讲的示例
+调用new
+可以用::new, ::delete
+new数组会多四个字节记录数组大小
+
+23讲 重载new(),delete()示例
+placement new
+
+24讲 
+
+
+
+
+
+
+
+
+
+

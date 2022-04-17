@@ -1,0 +1,136 @@
+1讲
+
+c++98(1.0) 1998年
+c++11(2.0) 2011年
+
+c++语言 + c++标准库
+
+
+2讲
+
+模版类
+
+template<typename T>
+class complex {
+public:
+    complex (T r = 0, T i = 0)
+        : re(r), im(i)
+    { }
+    T real（）const {return re;}
+    T imag（）const {return im;}
+private:
+    T re, im;
+};
+
+3讲
+
+构造函数放在private中，单例模式可以用
+
+4讲
+
+常量成员函数
+参数传递 传值 传引用
+友元
+相同class的各个objects互为friends（友元）
+
+5讲
+
+传递者无需知道接收者是以reference形式接收
+
+temp object（临时对象） typename（）
+下面这些函数绝对不可return by reference，因为它们返回的必定是个local object
+
+inline complex
+operator + (const complex& x, const complex& y)
+{
+  return complex (real (x) + real (y), imag (x) + imag (y));
+}
+
+inline complex
+operator + (const complex& x, double y)
+{
+  return complex (real (x) + y, imag (x));
+}
+
+inline complex
+operator + (double x, const complex& y)
+{
+  return complex (x + real (y), imag (y));
+}
+
+7讲
+
+三个特殊函数
+1 拷贝构造函数
+2 拷贝赋值函数 copy assignment operator
+3 析构函数
+
+浅拷贝 深拷贝
+
+8讲
+重载<<运算符，需要写成全局函数，若写成成员函数，则用法为a<<cout,不符合惯例用法
+
+new: 先分配memory，在调用ctor
+    Complex* pc = new Complex(1, 2);
+        编译器转化为===>
+    Complex* pc;
+    1 void* mem = operator new(sizeof(Complex)); //分配内存
+    2 pc = static_cast<Complex*>(mem);           //转型
+    3 pc->Complex::Complex(1, 2);                //构造函数
+
+delete：先调用dtor，在释放memory
+    String* ps = new String("Hello"）;
+    ...
+    delete ps;
+       编译器转化为===>
+    1 String::~String(ps); //析构函数
+    2 operator delete(ps);  //释放内存
+
+动态分配所得的内存块 in VC
+    Complex* pc = new Complex(1, 2);
+    调试模式 8+(32+4)+(4*2) > 52 > 64
+    Complex本身8个字节 8个字节前有32个字节，后有4个字节，加上2个cookie，然后要是16的倍数补上12个字节 
+    上下两个cookie的值为51h，50位64的十六进制表达，最后位1表示操作系统给出的标记位
+    release模式 8 + (4*2) > 16
+
+动态分配所得的array in VC
+    Complex* pc = new Complex[3];
+    调试模式 (8*3)+(32+4)+(4*2)+4 > 72 > 80
+    Complex本身是个数组8个字节*3 8个字节前有32个字节，后有4个字节，加上2个cookie，数组需要一个整数记录，4个字节，然后要是16的倍数补上8个字节
+    release模式 (8*3) + (4*2) > 36 > 48
+
+
+array new一定要搭配array delete
+    String* p = new String[3];
+    ...
+    delete[] p; //唤醒3次dtor
+
+    String* p = new String[3];
+    ...
+    delete p; //唤醒1次dtor
+
+10讲
+
+类模版 函数模版 命名空间
+1 using namespace std;
+2 using std::cout;
+
+11讲
+
+Composition（复合） 表示has-a 
+构造由内到外 析构由外到内
+
+Delegation（委托）Composition by reference
+
+Inheritance （继承）表示is-a
+父类的析构必须是virtual
+
+12讲
+虚函数
+    non-vertual函数
+    virtual函数 
+    pure virtual函数   virtual void func() const = 0;
+
+13讲
+
+
