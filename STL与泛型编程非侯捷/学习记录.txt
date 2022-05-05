@@ -1,0 +1,90 @@
+1 模版观念与函数模版
+    c++函数模版
+    int Max(int a, int b) {
+        return a > b ? a : b;
+    }
+
+    template<typename T> inline Max (T a, T b) {
+        return a > b ? a : b;
+    }
+
+    结论：模版被编译2次
+    1）没有实例化之前，检查模版代码本身是否有语法错误
+    2）实例化期间，检查对模版代码的调用是否合法
+
+    对于型别不同的参数只能调用非模版函数
+
+2 类模板与操作符重载
+    template<typename T> class Stack{
+    public:
+        void Push(const T const& element);
+        int Pop(T& element);
+        int Top(T& element) const;
+    private:
+        std::vector<T> m_Members;
+    };
+
+    类模版特化
+    template<>
+    class stack<std::wstring> {
+        ...
+    };
+
+    便特化（partial specialization）
+    主模版如果定义为
+    template<typename T1, typename T2> class MyClass {};    ---1 
+
+    可能产生以下几种对于主模版的偏特化：
+        将模版参数便特化为同样型别
+        template<typename T> class MyClass<T,T> {};    ---2
+
+        将第二个模版参数偏特化为int型别，不再是泛化的T
+        template<typename T> class MyClass<T,int> {};    ---3
+
+        将两个型别偏特化为指针
+        template<typename T1, typename T2> class MyClass<T1*,T2*> {};    ---4
+
+    MyClass<int, float> obj; 使用1
+    MyClass<float, float> obj; 使用2
+    MyClass<float, int> obj; 使用3
+    MyClass<int*, float*> obj; 使用4
+
+    如果有不止一个偏特化同等程度地能够匹配某个调用，那么该调用具有二义性，编译器不会通过编译
+    MyClass<int,int> obj; //MyClass<T,T> MyClass<T,int> 
+    MyClass<int*,int*> obj; //MyClass<T,T> MyClass<T1*,T2*>
+
+    默认模版实参
+    template<typenam T, typename TContainer = std::vector<T>> class Stack() {};
+
+    Stack<int> intStack; //使用默认的vector作为实参
+    Stack<std::wstring, std::list<std::wstring> > wstrStack; //指定list作为参数
+
+3 泛型编程
+    traits
+    迭代器
+
+4 容器
+
+5 STL整体结构
+    内存分配器 容器 迭代器 算法 仿函数 适配器
+    1）容器通过内存分配器分配空间
+    2）容器和算法分离
+    3）算法通过迭代器访问容器
+    4）仿函数协助算法完成不同的策略变化
+    5）适配器套接仿函数
+
+    仿函数
+    仿函数与算法之间的关系
+    Algorithm (Iterator first, Iterator last, ..., Functor func) {
+        ...
+        func(...)
+        ...
+    }
+
+    STL内建仿函数，或用户自定义仿函数
+    template <typename T> calss Functor {
+        void operator()(...) {}
+    }
+
+
+    

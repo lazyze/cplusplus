@@ -1,0 +1,82 @@
+1讲 
+
+2讲 STL体系结构介绍
+STL六大部件
+ 1 容器 containers
+ 2 分配器 allocators
+ 3 算法 algorithms
+ 4 迭代器 iterators
+ 5 适配器 adapters
+ 6 仿函式 functors
+
+复杂度，complexity
+ 1 O(1)或O(c) 常数时间
+ 2 O(n) 线性时间
+ ...
+
+ 前闭后开区间
+
+ range-base for statement(since c++11)
+ for (decl : coll) {
+     statement
+ }
+
+ 3讲 容器之分类
+ sequence containers
+ associattive containers
+
+array
+ snprintf() <stdio.h>
+ rand() RAND_MAX <stdlib.h>
+ clock() <time.h>
+ qsort() 
+ bsearch()
+
+vector
+abort()
+v.size() 元素个数
+v.capacity() 
+find()
+
+8讲
+
+10讲 技术基础
+
+11讲 分配器
+operator new() 和 malloc()
+malloc会有额外开销
+
+12讲 容器之间的实现关系和分类
+
+13讲 容器list上
+iterator
+prefix form //前++
+self& operator++() {
+
+}
+//后++
+self operator++(int) {
+
+}
+
+14讲
+
+15讲 迭代器的设计原则
+iterator必须提供的5种associated types
+
+iterator_traits
+
+16讲 vector深度探索
+
+17讲 array...
+
+18讲 deque
+
+19讲
+
+
+
+
+
+ 
+

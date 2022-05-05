@@ -1,0 +1,38 @@
+1讲
+
+2讲 variadic templates 
+    数量不定的模版参数
+
+3讲 nullptr, auto, 
+    nullptr
+    std::nullptr_t
+    typedef decltype(nullptr) nullptr_t
+
+4讲 uniform initialization //一致性初始化
+
+7讲 explict
+
+8讲 range based for statement
+
+9讲 =default =delete
+    如果你自行定义了一个ctor，那么编译就不会再给你一个default ctor
+    如果你强行加上=default，就可以重新获取并使用default ctor
+
+
+class Empty{};
+
+编译器工作后
+class Empty{
+public:
+    Empty() {...}
+    Empty(cosnt Empty& rhs) {...}
+    ~Empty() {...}
+    Empty& operator=(cosnt Empty& rhs) {...}
+};
+
+这些函数都是public且inline的
+
+10讲 Alias template
+
+
+
